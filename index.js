@@ -10,6 +10,7 @@ const expressServer = app.listen(9000, () => {
 
 const io = socketio(expressServer);
 
+// how I can implement this
 // basic chat mechanism
 // first client connect to server
 // send message on specific topic with data like { messageData: 'text' , otherclientListeningTopic: 'topic-name'}
