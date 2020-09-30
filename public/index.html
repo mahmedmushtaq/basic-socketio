@@ -1,0 +1,31 @@
+<input type="text" id="other-room-name" placeholder="Other User Room Name" />
+<input type="text" id="your-room-name" placeholder="Your room name" />
+<input type="text" id="message" placeholder="Your Message" />
+
+<button id="join-room" onclick="joinRoom()">Join Room</button>
+<button id="submit" onclick="sendMessage()">Send message</button>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io('http://localhost:9000');
+
+  socket.on('chat message', (data) => {
+    console.log(data);
+  });
+
+  // send userDiscconected emit event when user logged Out
+
+  const joinRoom = () => {
+    const yourRoomName = document.getElementById('your-room-name').value;
+    socket.emit('userConnected', yourRoomName);
+  };
+
+  const sendMessage = () => {
+    const message = document.getElementById('message').value;
+    const otherRoomName = document.getElementById('other-room-name').value;
+    socket.emit('message', {
+      otherUserRoomName: otherRoomName,
+      message,
+    });
+  };
+</script>
